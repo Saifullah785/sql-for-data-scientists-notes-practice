@@ -49,4 +49,43 @@ FROM farmers_market.vendor_booth_assignments
 ORDER BY market_date, vendor_id
 LIMIT 5
 
+-- =============More Inline Calculation Examples: Rounding
+
+SELECT * FROM farmers_market.customer_purchases
+
+SELECT market_date,
+       customer_id,
+       vendor_id,
+       ROUND(quantity + cost_to_customer_per_qty, 2) AS price
+FROM farmers_market.customer_purchases
+LIMIT 10
+
+
+-- ===== More Inline Calculation Examples: Concatenating Strings
+
+SELECT * 
+FROM farmers_market.customer
+LIMiT 5
+
+
+SELECT customer_id,
+CONCAT(Customer_first_name, " ",  customer_last_name) AS customer_name
+FROM farmers_market.customer
+lIMIT 5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
