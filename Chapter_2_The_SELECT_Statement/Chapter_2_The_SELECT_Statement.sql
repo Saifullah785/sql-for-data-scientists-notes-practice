@@ -74,14 +74,39 @@ FROM farmers_market.customer
 lIMIT 5
 
 
+SELECT customer_id,
+CONCAT(Customer_first_name, " ",  customer_last_name) AS customer_name
+FROM farmers_market.customer
+ORDER BY customer_last_name, customer_first_name
+lIMIT 5
 
 
 
+SELECT 
+		customer_id,
+        UPPER(CONCAT(customer_last_name, ", ", customer_first_name)) AS customer_name
+        FROM farmers_market.customer
+        ORDER BY customer_last_name, customer_first_name
+        LIMIT 5
 
 
 
+-- ==============Evaluating Query Output============================
+
+SELECT
+     market_date,
+     customer_id,
+     vendor_id,
+     ROUND(quantity * cost_to_customer_per_qty, 2) AS price
+FROM farmers_market.customer_purchases
 
 
+SELECT
+     vendor_name,
+     vendor_id,
+     vendor_type
+FROM farmers_market.vendor
+ORDER BY vendor_name
 
 
 
