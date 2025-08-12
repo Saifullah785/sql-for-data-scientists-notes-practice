@@ -84,12 +84,41 @@ SELECT
 FROM farmers_market.customer_purchases
 WHERE
 	customer_id = 4
-    AND vendor_id = 7
+    AND vendor_id = 7 
+    
+    
+
+SELECT 
+	customer_id,
+    customer_first_name,
+    customer_last_name
+FROM farmers_market.customer
+WHERE
+	customer_first_name = 'Carlos'
+    OR customer_last_name = 'Diaz'
+    
+    
+SELECT * 
+FROM farmers_market.vendor_booth_assignments
+WHERE 
+	vendor_id = 7
+    AND market_date <= '2019-05-08'
+ORDER BY market_date
+    
+    
+
+-- =========================More Ways to Filter=======================
+
+
+-- =========================BETWEEN=======================
+SELECT *
+FROM farmers_market.vendor_booth_assignments
 
 
 
-
-
-
-
-
+SELECT *
+FROM farmers_market.vendor_booth_assignments
+WHERE
+	vendor_id = 7
+    AND market_date BETWEEN '2019-04-03' and '2019-04-13'
+    ORDER BY market_date
