@@ -122,3 +122,54 @@ WHERE
 	vendor_id = 7
     AND market_date BETWEEN '2019-04-03' and '2019-04-13'
     ORDER BY market_date
+
+
+-- =========================IN=======================
+
+SELECT 
+	customer_id,
+    customer_first_name,
+    customer_last_name
+FROM farmers_market.customer
+WHERE
+	customer_last_name = 'Diaz'
+    OR customer_last_name = 'Edwards'
+    OR customer_last_name = 'Wilson'
+ORDER BY customer_last_name, customer_first_name 
+
+- --------------------------------------------------------
+SELECT * 
+FROM farmers_market.customer
+
+- ------------------------------------------------------
+
+SELECT 
+	customer_id,
+    customer_first_name,
+    customer_last_name
+FROM farmers_market.customer
+WHERE
+	customer_last_name IN ('Diaz', 'Edwards', 'Wilson')
+    
+ORDER BY customer_last_name, customer_first_name
+
+
+- --------------------------------------------------------
+SELECT
+	customer_id,
+	customer_first_name,
+	customer_last_name
+FROM farmers_market.customer
+WHERE
+	customer_first_name IN ('Renee', 'Rene', 'Renée', 'René', 'Renne')
+
+- --------------------------------------------------------
+-- =========================LIKE=======================
+
+SELECT 
+	customer_id, 
+    customer_first_name,
+    customer_last_name
+FROM farmers_market.customer
+WHERE
+	customer_first_name LIKE 'Jer%'
