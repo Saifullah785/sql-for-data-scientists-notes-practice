@@ -173,3 +173,65 @@ SELECT
 FROM farmers_market.customer
 WHERE
 	customer_first_name LIKE 'Jer%'
+    
+   
+    
+-- ========================= IS NULL=======================    
+
+SELECT *
+FROM farmers_market.product
+WHERE product_size IS NULL
+    
+- --------------------------------------------------------
+
+SELECT *
+FROM farmers_market.product
+WHERE
+	product_size IS NULL
+    OR TRIM(product_size) = ''
+    
+    
+    
+    -- =====================A Warning About Null Comparisons=======================  
+    
+SELECT 
+	market_date,
+	transaction_time,
+	customer_id,
+	vendor_id,
+	quantity
+FROM farmers_market.customer_purchases
+WHERE
+	customer_id =1
+    AND vendor_id = 7
+    AND quantity > 1
+    
+ - --------------------------------------------------------   
+    
+SELECT 
+	market_date,
+	transaction_time,
+	customer_id,
+	vendor_id,
+	quantity
+FROM farmers_market.customer_purchases
+WHERE
+	customer_id = 1
+    AND vendor_id = 7
+    AND quantity <= 1	
+   
+- --------------------------------------------------------
+   
+    
+SELECT 
+	market_date,
+	transaction_time,
+	customer_id,
+	vendor_id,
+	quantity
+FROM farmers_market.customer_purchases
+WHERE
+	customer_id = 1
+    AND vendor_id = 7
+    
+- --------------------------------------------------------
