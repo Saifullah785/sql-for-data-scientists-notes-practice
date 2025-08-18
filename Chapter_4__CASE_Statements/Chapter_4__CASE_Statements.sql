@@ -102,3 +102,59 @@ SELECT
 	FROM farmers_market.customer_purchases
 	LIMIT 10
     
+    
+-- ===================== Categorical Encoding Using CASE =====
+
+
+SELECT 
+	booth_number,
+    booth_price_level,
+    CASE
+		WHEN booth_price_level = 'A' THEN 1
+        WHEN booth_price_level = 'B' THEN 2
+        WHEN booth_price_level = 'C' THEN 3
+	END AS booth_price_level_numeric
+FROM farmers_market.booth
+LIMIT 5
+
+
+-- =================================================================== 
+
+
+SELECT 
+	vendor_id,
+    vendor_name,
+    vendor_type,
+    CASE WHEN vendor_type = 'Arts & Jewelry'
+		THEN 1
+        ELSE 0
+        
+	END AS vendor_type_arts_jewelry,
+    CASE WHEN vendor_type = 'Eggs & Meats'
+		THEN 1
+        ELSE 0
+	END AS vendor_type_eggs_meats,
+	CASE WHEN vendor_type = 'Fresh Focused'
+		THEN 1
+        ELSE 0
+	END AS vendor_type_fresh_focused,
+	
+	CASE WHEN vendor_type = 'Fresh Variety Veggies & More '
+		THEN 1
+        ELSE 0
+	END AS vendor_type_fresh_variety,
+	CASE WHEN vendor_type = 'Prepared Foods '
+		THEN 1
+        ELSE 0
+	END AS vendor_type_prepared
+    
+FROM farmers_market.vendor
+
+
+
+
+
+
+
+
+
