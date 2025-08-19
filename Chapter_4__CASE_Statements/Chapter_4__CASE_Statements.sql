@@ -151,10 +151,37 @@ SELECT
 FROM farmers_market.vendor
 
 
+-- =================================================================== 
 
 
+-- ===================== CASE Statement Summary =====
 
+SELECT
+	customer_id,
+    CASE
+		WHEN customer_zip = '22801' THEN 'Local'
+        ELSE 'Not Local'
+	END customer_location_type
+	FROM data_science.customer
+    LIMIT 10
+    
+    
 
-
-
+-- =================================================================== 
+SELECT
+ booth_number,
+ CASE WHEN booth_price_level = 'A'
+ THEN 1
+ ELSE 0
+ END booth_price_level_A,
+ CASE WHEN booth_price_level = 'B'
+ THEN 1
+ ELSE 0     
+END booth_price_level_B,
+ CASE WHEN booth_price_level = 'C'
+ THEN 1
+ ELSE 0
+ END booth_price_level_C
+FROM data_science.booth
+LIMIT 5
 
