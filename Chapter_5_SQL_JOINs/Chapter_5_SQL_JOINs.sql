@@ -57,6 +57,39 @@ FROM customer AS c
 RIGHT JOIN customer_purchases AS cp
 	ON c.customer_id = cp.customer_id
  
+ -- ===================== A Common Pitfall when Filtering Joined Data =====
  
+ 
+ SELECT * 
+ FROM customer AS c
+ LEFT JOIN customer_purchases AS cp
+	ON c.customer_id = cp.customer_id
+ WHERE cp.customer_id > 0
+ 
+ -- ===================================================================
+ 
+ SELECT c.*, cp.market_date
+ FROM customer AS c
+ LEFT JOIN customer_purchases AS cp
+	ON c.customer_id = cp.customer_id
+WHERE cp.market_date <> '2019-03-02'
+ 
+-- ===================================================================
+ 
+SELECT c.*, cp.market_date
+FROM customer AS c
+LEFT JOIN customer_purchases AS cp
+	ON c.customer_id = cp.customer_id
+    
+WHERE (cp.market_date <> '2019-03-02' OR cp.market_date IS NULL)
+
+-- ===================================================================
+ 
+SELECT DISTINCT c.*
+FROM customer AS c
+LEFT JOIN customer_purchases AS cp
+	ON c.customer_id = cp.customer_id
+    
+WHERE (cp.market_date <> '2019-03-02' OR cp.market_date IS NULL)
  
  
