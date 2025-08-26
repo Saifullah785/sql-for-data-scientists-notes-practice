@@ -69,8 +69,39 @@ LIMIT 10
 
 
 
+-- ===================Performing Calculations Inside Aggregate Functions=============================
+
+SELECT 
+	market_date,
+    customer_id,
+    vendor_id,
+    quantity * cost_to_customer_per_qty AS price
+FROM data_science.customer_purchases
+WHERE 
+	customer_id = 3
+ORDER BY market_date, vendor_id
+
+-- ===================================================================
+
+SELECT 
+	customer_id,
+    market_date,
+    SUM(quantity * cost_to_customer_per_qty) AS total_spent
+FROM data_science.customer_purchases
+WHERE 
+	customer_id = 3
+GROUP BY market_date
+ORDER BY market_date
 
 
+-- ===================================================================
 
-
-
+SELECT 
+	customer_id,
+    vendor_id,
+    SUM(quantity * cost_to_customer_per_qty) AS total_spent
+FROM data_science.customer_purchases
+WHERE 
+	customer_id = 3
+GROUP BY customer_id, vendor_id
+ORDER BY customer_id, vendor_id
