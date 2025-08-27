@@ -105,3 +105,28 @@ WHERE
 	customer_id = 3
 GROUP BY customer_id, vendor_id
 ORDER BY customer_id, vendor_id
+
+
+-- ===================================================================
+SELECT
+	customer_id,
+    SUM(quantity * cost_to_customer_per_qty) AS total_spent
+FROM data_science.customer_purchases
+GROUP BY customer_id
+ORDER BY customer_id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
