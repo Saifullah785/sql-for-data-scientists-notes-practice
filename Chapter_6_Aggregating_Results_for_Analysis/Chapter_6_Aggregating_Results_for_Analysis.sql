@@ -117,10 +117,25 @@ ORDER BY customer_id
 
 
 
+-- ===================================================================
+SELECT 
+	c.customer_first_name,
+    c.customer_last_name,
+    cp.customer_id,
+    v.vendor_name,
+    cp.vendor_id,
+    cp.quantity * cp.cost_to_customer_per_qty AS price
+FROM data_science.customer c
+	LEFT JOIN data_science.customer_purchases cp
+		ON c.customer_id = cp.customer_id
+    LEFT JOIN data_science.vendor v
+		ON cp.vendor_id = v.vendor_id
+WHERE 	
+	cp.customer_id = 3
+ORDER BY cp.customer_id, cp.vendor_id
 
 
-
-
+-- ===================================================================
 
 
 
