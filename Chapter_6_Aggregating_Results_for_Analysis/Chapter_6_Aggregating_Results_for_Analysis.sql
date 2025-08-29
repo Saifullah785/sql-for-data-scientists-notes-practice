@@ -137,10 +137,30 @@ ORDER BY cp.customer_id, cp.vendor_id
 
 -- ===================================================================
 
+SELECT 
+	c.customer_first_name,
+    c.customer_last_name,
+    cp.customer_id,
+    v.vendor_name,
+    cp.vendor_id,
+    ROUND(SUM(quantity * cost_to_customer_per_qty), 2) AS total_spent
+FROM data_Science.customer c
+	LEFT JOIN data_science.customer_purchases cp
+		ON c.customer_id = cp.customer_id
+	LEFT JOIN data_science.vendor v
+		ON cp.vendor_id = v.vendor_id
+WHERE
+	cp.customer_id = 3
+GROUP BY 
+	c.customer_first_name,
+    c.customer_last_name,
+    cp.customer_id,
+    v.vendor_name,
+    cp.vendor_id
+ORDER BY cp.customer_id, cp.vendor_id
 
 
-
-
+-- ===================================================================
 
 
 
