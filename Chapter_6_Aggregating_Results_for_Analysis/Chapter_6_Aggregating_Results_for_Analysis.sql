@@ -187,3 +187,36 @@ GROUP BY
  
 ORDER BY cp.customer_id, cp.vendor_id
 
+-- ===================MIN and MAX======================================
+
+SELECT *
+FROM data_science.vendor_booth_inventory
+ORDER BY original_price
+LIMIT 10
+
+
+-- ===================================================================
+
+SELECT 
+	MIN(original_price) AS minimum_price,
+    MAX(original_price) AS maximum_price
+FROM data_science.vendor_booth_inventory
+ORDER BY original_price
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
