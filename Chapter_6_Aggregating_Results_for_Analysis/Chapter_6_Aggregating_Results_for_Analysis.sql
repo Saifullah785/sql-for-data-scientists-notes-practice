@@ -203,6 +203,52 @@ SELECT
 FROM data_science.vendor_booth_inventory
 ORDER BY original_price
 
+-- ===================================================================
+
+
+SELECT 
+	pc.product_category_name,
+    p.product_category_id,
+    MIN(vi.original_price) AS minimun_price,
+    MAX(vi.original_price) AS maximum_price
+    
+FROM data_science.vendor_booth_inventory AS vi
+	INNER JOIN data_science.product AS p
+		ON vi.product_id = p.product_id
+	INNER JOIN data_science.product_category AS pc
+		ON p.product_category_id = pc.product_category_id
+GROUP BY pc.product_category_name, p.product_category_id
+
+
+-- ===================COUNT and COUNT DISTINCT================================
+
+
+
+SELECT 
+	market_date,
+    COUNT(product_id) AS product_count
+FROM data_science.vendor_booth_inventory
+GROUP BY market_date
+ORDER BY market_date
+
+-- ===================================================================
+
+SELECT
+	vendor_id,
+    COUNT(DISTINCT product_id) AS different_products_offered
+FROM data_science.vendor_booth_inventory
+WHERE market_date BETWEEN '2019-04-03' AND '2019-12-28'
+GROUP BY vendor_id
+ORDER BY vendor_id
+
+
+
+
+
+
+
+
+
 
 
 
