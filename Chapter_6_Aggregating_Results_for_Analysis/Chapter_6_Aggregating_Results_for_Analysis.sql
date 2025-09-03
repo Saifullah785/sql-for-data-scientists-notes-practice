@@ -242,15 +242,40 @@ GROUP BY vendor_id
 ORDER BY vendor_id
 
 
+-- ===================================================================
+
+-- ===================Average================================
+
+
+SELECT 
+	vendor_id,
+    COUNT(DISTINCT product_id) AS different_products_offered,
+    AVG(original_price) AS average_product_price
+FROM data_science.vendor_booth_inventory
+WHERE market_date BETWEEN '2019-04-03' AND '2019-12-28'
+GROUP BY vendor_id
+ORDER BY vendor_id
 
 
 
+-- ===================================================================
+
+
+SELECT 
+	vendor_id,
+    COUNT(DISTINCT product_id) AS different_products_offered,
+    SUM(quantity * original_price) AS value_of_inventory,
+    SUM(quantity) AS inventory_item_count,
+    ROUND(SUM(quantity * original_price) / SUM(quantity), 2) AS 
+average_item_price
+FROM data_science.vendor_booth_inventory
+WHERE market_date BETWEEN '2019-04-03' AND '2019-12-28'
+GROUP BY vendor_id
+ORDER BY vendor_id
 
 
 
-
-
-
+-- ===================================================================
 
 
 
