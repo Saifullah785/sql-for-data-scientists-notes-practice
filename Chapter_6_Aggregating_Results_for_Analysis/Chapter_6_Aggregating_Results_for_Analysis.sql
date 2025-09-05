@@ -299,8 +299,22 @@ ORDER BY vendor_id
 
 
 -- ===================================================================
+-- ===========CASE Statements Inside Aggregate Functions=======================
 
-
+SELECT
+ cp.market_date,
+ cp.vendor_id,
+ cp.customer_id,
+ cp.product_id,
+ cp.quantity,
+ p.product_name,
+ p.product_size,
+ p.product_qty_type
+FROM data_science.customer_purchases AS cp
+ INNER JOIN data_science.product AS p
+ ON cp.product_id = p.product_id
+ 
+-- ===================================================================
 
 
 
