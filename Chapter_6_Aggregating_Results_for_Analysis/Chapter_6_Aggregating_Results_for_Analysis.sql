@@ -316,6 +316,41 @@ FROM data_science.customer_purchases AS cp
  
 -- ===================================================================
 
+SELECT 
+	cp.market_date,
+    cp.vendor_id,
+    cp.customer_id,
+    cp.product_id,
+    CASE WHEN product_qty_type = 'unit' THEN quantity ELSE 0 END AS
+quantity_units,
+	CASE WHEN product_qty_type = 'lbs' THEN quantity ELSE 0 END AS
+quantity_lbs,
+	CASE WHEN product_qty_type NOT IN ('unit', 'lbs') THEN quantity ELSE
+0 END AS quantity_other,
+	p.product_qty_type
+FROM data_science.customer_purchases cp
+	INNER JOIN data_science.product p
+		ON cp.product_id = p.product_id
+
+-- ===================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
