@@ -334,13 +334,25 @@ FROM data_science.customer_purchases cp
 
 -- ===================================================================
 
+SELECT 
+	cp.market_date,
+    cp.customer_id,
+    SUM(CASE WHEN product_qty_type = 'unit' THEN quantity ELSE 0 END) AS
+qty_units_purchased,
+	SUM(CASE WHEN product_qty_type = 'lbs' THEN quantity ELSE 0 END) AS
+qty_lbs_purchased,
+	SUM(CASE WHEN product_qty_type NOT IN ('unit','lbs')THEN quantity
+ELSE 0 END) AS qty_other_purchased
+FROM data_science.customer_purchases cp
+	INNER JOIN data_science.product p
+		ON cp.product_id = p.product_id
+GROUP BY market_date, customer_id
+ORDER BY market_date, customer_id
 
 
 
 
-
-
-
+-- ===================================================================
 
 
 
