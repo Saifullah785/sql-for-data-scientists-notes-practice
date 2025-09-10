@@ -37,5 +37,36 @@ price_rank
 WHERE x.price_rank = 2
 
 
+-- ===========RANK and DENSE RANK=======================
+
+SELECT 
+	vendor_id,
+    market_date,
+    product_id,
+    original_price,
+    RANK() OVER (PARTITION BY vendor_id ORDER BY original_price DESC) AS
+price_rank
+	FROM data_science.vendor_booth_inventory
+ORDER BY vendor_id, original_price DESC
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
