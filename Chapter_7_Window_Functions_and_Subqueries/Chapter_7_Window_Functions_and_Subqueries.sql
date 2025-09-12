@@ -62,9 +62,28 @@ SELECT
     FROM data_science.vendor_booth_inventory
 ORDER BY original_price DESC
 
+-- ===========Aggregate Window Functions=======================
 
-
-
+SELECT
+	vendor_id,
+    market_date,
+    product_id,
+    original_price,
+    AVG(original_price) OVER (PARTITION BY market_date ORDER BY 
+    market_date) 
+				AS  average_cost_product_by_market_date
+	FROM data_science.vendor_booth_inventory 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 
