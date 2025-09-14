@@ -99,9 +99,18 @@ SELECT
 	ORDER BY x.market_date, x.original_price DESC
     
 -- ===================================================================
-    
-    
 
+SELECT 
+	vendor_id,
+    market_date,
+    product_id,
+    original_price,
+    COUNT(product_id) OVER (PARTITION BY market_date, vendor_id)
+vendor_product_count_per_market_date
+	FROM data_science.vendor_booth_inventory
+ORDER BY vendor_id, market_date, original_price DESC
+    
+-- ===================================================================
 
 
 
