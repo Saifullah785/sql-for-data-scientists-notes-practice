@@ -112,6 +112,43 @@ ORDER BY vendor_id, market_date, original_price DESC
     
 -- ===================================================================
 
+SELECT customer_id,
+	market_date,
+    vendor_id,
+    product_id,
+    quantity * cost_to_customer_per_qty AS price,
+    SUM(quantity * cost_to_customer_per_qty) OVER (ORDER BY market_date,
+    transaction_time, customer_id, product_id) AS running_total_purchases
+    FROM data_science.customer_purchases
+
+-- ===================================================================
+
+SELECT customer_id,
+	market_date,
+    vendor_id,
+    product_id,
+    quantity * cost_to_customer_per_qty AS price,
+    SUM(quantity * cost_to_customer_per_qty) OVER (PARTITION BY customer_id ORDER BY market_date,
+    transaction_time, customer_id, product_id) AS customer_spend_running_total
+    FROM data_science.customer_purchases
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
