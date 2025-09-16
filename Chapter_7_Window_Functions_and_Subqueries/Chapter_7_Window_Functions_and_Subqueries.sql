@@ -132,7 +132,16 @@ SELECT customer_id,
     transaction_time, customer_id, product_id) AS customer_spend_running_total
     FROM data_science.customer_purchases
 
+-- ===================================================================
 
+SELECT customer_id,
+	market_date,
+    vendor_id,
+    product_id,
+    ROUND(quantity * cost_to_customer_per_qty, 2) AS price,
+    ROUND(SUM(quantity * cost_to_customer_per_qty) OVER (PARTITION BY
+customer_id), 2) AS customer_spend_total
+FROM data_science.customer_purchases
 
 
 
