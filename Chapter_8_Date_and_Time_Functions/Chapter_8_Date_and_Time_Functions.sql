@@ -1,7 +1,7 @@
 
 
 
--- =========Setting datetime Field Values=======================
+-- =========Setting datetime Field Values+=======================
 
 CREATE TABLE data_science.datetime_demo AS
 (
@@ -30,3 +30,28 @@ FROM data_science.datetime_demo
 WHERE market_Start_datetime = '2019-03-02 08:00:00'
 
 -- ===================================================================
+
+
+
+SELECT market_start_datetime,
+	DATE(market_start_datetime) AS mktsrt_date,
+    TIME(market_start_datetime) AS mktsrt_time
+FROM data_science.datatime_demo
+WHERE market_start_datetime = '2019-03-02 08:00:00'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
