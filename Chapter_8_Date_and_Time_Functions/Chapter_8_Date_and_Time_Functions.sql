@@ -39,14 +39,19 @@ SELECT market_start_datetime,
 FROM data_science.datatime_demo
 WHERE market_start_datetime = '2019-03-02 08:00:00'
 
--- ===================================================================
+-- =============DATE_ADD and DATE_SUB=========================
 
 SELECT market_start_datetime,
 	DATE_ADD(market_start_datetime, INTERVAL 30 MINUTE)AS mktstrt_date_plus_30min
 FROM data_Science.datetime_demo
 WHERE market_start_datetime = '2019-03-02 08:00:00'
 
+-- ===================================================================
 
+SELECT market_start_datetime,
+	DATE_ADD(market_start_datetime, INTERVAL 30 DAY) AS mktstrt_date_plus_30days
+FROM data_science.datetime_demo
+WHERE market_start_datetime = '2019=03-02 08:00:00'
 
 
 
