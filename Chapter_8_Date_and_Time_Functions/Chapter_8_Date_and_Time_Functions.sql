@@ -54,7 +54,12 @@ FROM data_science.datetime_demo
 WHERE market_start_datetime = '2019=03-02 08:00:00'
 
 
-
+-- ===================================================================
+SELECT market_start_datetime,
+	DATE_ADD(market_start_datetime, INTERVAL -30 DAY) AS mkstrt_date_plus_neg30days,
+    DATE_SUB(market_start_datetime, INTERVAL 30 DAY) AS mktstrt_date_minus_30days
+FROM data_science.datetime_demo
+WHERE market_start_datetime = '2019-03-02 08:00:00'
 
 
 
