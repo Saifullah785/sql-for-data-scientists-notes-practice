@@ -61,7 +61,19 @@ SELECT market_start_datetime,
 FROM data_science.datetime_demo
 WHERE market_start_datetime = '2019-03-02 08:00:00'
 
+-- =============DATEDIFF=========================
 
+SELECT
+	x.first_market,
+    x.last_market,
+    DATEDIFF(x.last_market, x.first_market) days_first_to_last
+FROM 
+(
+	SELECT
+		min(market_start_Datetime) first_market,
+        max(market_start_datetime) last_market
+	FROM data_science.datetime_demo
+) x
 
 
 
