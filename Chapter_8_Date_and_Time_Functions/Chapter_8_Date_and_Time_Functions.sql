@@ -72,8 +72,30 @@ FROM
 	SELECT
 		min(market_start_Datetime) first_market,
         max(market_start_datetime) last_market
-	FROM data_science.datetime_demo
+	FROM farmers_market.datetime_demo
 ) x
+
+
+-- ==================TIMESTAMPDIFF===========================
+
+SELECT market_start_datetime, market_end_datetime,
+	TIMESTAMPDIFF(HOUR, market_start_datetime, market_end_datetime)
+		AS market_duration_hours,
+	TIMESTAMPDIFF(MINUTE, market_start_datetime, market_end_datetime)
+		AS market_duration_mins
+FROM farmers_market.datetime_demo
+
+
+-- ===================================================================
+
+
+
+
+
+
+
+
+
 
 
 
