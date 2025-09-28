@@ -3,7 +3,7 @@
 
 -- =========Setting datetime Field Values+=======================
 
-CREATE TABLE data_science.datetime_demo AS
+CREATE TABLE farmers_market.datetime_demo AS
 (
 	SELECT market_date,
 		market_start_time,
@@ -15,7 +15,7 @@ CREATE TABLE data_science.datetime_demo AS
 		STR_TO_DATE(CONCAT(market_date, ' ', market_end_time),'%Y-%m-%d
 %h:%i %p')
 			AS market_end_datetime
-		FROM data_science.market_date_info        
+		FROM farmers_market.market_date_info        
 )
 
 -- ==========EXTRACT and DATE_PART=======================
@@ -26,31 +26,32 @@ SELECT market_start_datetime,
     EXTRACT(YEAR FROM market_Start_datetime) AS mktsrt_year,
     EXTRACT(HOUR FROM market_start_datetime) AS mktsrt_hour,
     EXTRACT(MINUTE FROM market_start_datetime) AS mktsrt_minute
-FROM data_science.datetime_demo
+FROM farmers_market.datetime_demo
 WHERE market_Start_datetime = '2019-03-02 08:00:00'
 
 -- ===================================================================
-
+SELECT *
+FROM farmers_market.datetime_demo
 
 
 SELECT market_start_datetime,
 	DATE(market_start_datetime) AS mktsrt_date,
     TIME(market_start_datetime) AS mktsrt_time
-FROM data_science.datatime_demo
+FROM farmers_market.datetime_demo
 WHERE market_start_datetime = '2019-03-02 08:00:00'
 
 -- =============DATE_ADD and DATE_SUB=========================
 
 SELECT market_start_datetime,
 	DATE_ADD(market_start_datetime, INTERVAL 30 MINUTE)AS mktstrt_date_plus_30min
-FROM data_Science.datetime_demo
+FROM farmers_market.datetime_demo
 WHERE market_start_datetime = '2019-03-02 08:00:00'
 
 -- ===================================================================
 
 SELECT market_start_datetime,
 	DATE_ADD(market_start_datetime, INTERVAL 30 DAY) AS mktstrt_date_plus_30days
-FROM data_science.datetime_demo
+FROM farmers_market.datetime_demo
 WHERE market_start_datetime = '2019=03-02 08:00:00'
 
 
@@ -58,7 +59,7 @@ WHERE market_start_datetime = '2019=03-02 08:00:00'
 SELECT market_start_datetime,
 	DATE_ADD(market_start_datetime, INTERVAL -30 DAY) AS mkstrt_date_plus_neg30days,
     DATE_SUB(market_start_datetime, INTERVAL 30 DAY) AS mktstrt_date_minus_30days
-FROM data_science.datetime_demo
+FROM farmers_market.datetime_demo
 WHERE market_start_datetime = '2019-03-02 08:00:00'
 
 -- =============DATEDIFF=========================
