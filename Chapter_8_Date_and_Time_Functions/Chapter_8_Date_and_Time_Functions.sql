@@ -87,12 +87,24 @@ SELECT market_start_datetime, market_end_datetime,
 FROM farmers_market.datetime_demo
 
 
+-- ======Date Functions in Aggregate Summaries and Window Functions================
+
+
+SELECT customer_id, market_date
+FROM farmers_market.customer_purchases
+WHERE customer_id = 1
+
 -- ===================================================================
 
+SELECT customer_id,
+	MIN(market_date) AS first_purchases,
+    MAX(market_date) AS last_purchases,
+    COUNT(DISTINCT market_date) AS count_of_purchase_dates
+FROM farmers_market.customer_purchases
+WHERE customer_id = 1
+GROUP BY customer_id
 
-
-
-
+-- ===================================================================
 
 
 
