@@ -131,7 +131,20 @@ SELECT customer_id, market_date,
     LEAD(market_date,1) OVER (PARTITION BY customer_id ORDER BY market_date) AS next_purchase
 FROM farmers_market.customer_purchases
 WHERE customer_id = 1
+-- ===================================================================
 
+SELECT
+	x.customer_id,
+    x.market_date,
+    RANK() OVER(PARTITION BY x.customer_id ORDER BY x.market_date) AS purchase_number,
+    LEAD(x.market_date,1) OVER (PARTITION BY x.customer_id ORDER BY x.market_date) AS next_purchase
+    
+    FROM 
+    (	
+		SELECT DISTINCT customer_id, market_date
+        FROM farmers_market.customer_purchases
+        WHERE customer_id = 1
+	) x
 
 
 
