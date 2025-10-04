@@ -146,10 +146,26 @@ SELECT
         WHERE customer_id = 1
 	) x
 
+-- ===================================================================
+SELECT
+	x.customer_id,
+    x.market_date,
+    RANK() OVER (PARTITION BY x.customer_id ORDER BY x.market_date)
+		AS purchase_number,
+	LEAD(x.market_date,1) OVER (PARTITION BY x.customer_id ORDER BY x.market_date) AS next_purchase,
+    DATEDIFF(
+		LEAD(x.market_date,1) OVER
+        (PARTITION BY x.customer_id ORDER BY x.market_date),
+        x.market_date) AS days_between_purchases
+        
+	FROM 
+    (
+		SELECT DISTINCT customer_id, market_date
+        FROM farmers_market.customer_purchases
+        WHERE customer_id =1
+	) x
 
-
-
-
+-- ===================================================================
 
 
 
