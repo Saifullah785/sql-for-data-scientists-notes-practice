@@ -169,6 +169,38 @@ SELECT
 
 
 
+SELECT
+	a.customer_id,
+    a.market_date AS first_purchase,
+    a.next_purchase AS second_purchase,
+    DATEDIFF(a.next_purchase, a.market_date) AS time_between_1st_2nd_purchase
+FROM 
+(
+	SELECT
+		x.customer_id,
+        x.market_date,
+        RANK() OVER (PARTITION BY x.customer_id ORDER BY x.market_date) AS purchase_number,
+        LEAD(x.market_date, 1) OVER (PARTITION BY x.customer_id ORDER BY x.market_date) AS next_purchase
+		FROM 
+        (
+			SELECT DISTINCT customer_id, market_date
+            FROM farmers_market.customer_purchases
+		) x
+)a
+WHERE a.purchase_number =1
+
+
+-- ===================================================================
+
+
+
+
+
+
+
+
+
+
 
 
 
