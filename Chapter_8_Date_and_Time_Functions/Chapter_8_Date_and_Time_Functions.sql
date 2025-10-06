@@ -191,6 +191,9 @@ WHERE a.purchase_number =1
 
 
 -- ===================================================================
+SELECT DISTINCT customer_id, market_date
+FROM farmers_market.customer_purchases
+WHERE DATEDIFF('2019-03-31',market_date) <=31
 
 
 
