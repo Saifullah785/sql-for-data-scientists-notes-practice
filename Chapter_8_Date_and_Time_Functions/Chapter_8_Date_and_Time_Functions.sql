@@ -196,10 +196,19 @@ FROM farmers_market.customer_purchases
 WHERE DATEDIFF('2019-03-31',market_date) <=31
 
 
+-- ===================================================================
 
 
-
-
+SELECT x.customer_id,
+	COUNT(DISTINCT x.market_date) AS market_count
+FROM 
+ (
+	SELECT DISTINCT customer_id, market_date
+    FROM farmers_market.customer_purchases
+    WHERE DATEDIFF('2019-03-31', market_date) <= 31
+ ) x
+ GROUP BY x.customer_id
+ HAVING COUNT(DISTINCT market_date) = 1
 
 
 
