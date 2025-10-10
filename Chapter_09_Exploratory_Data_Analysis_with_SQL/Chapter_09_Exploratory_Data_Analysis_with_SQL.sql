@@ -11,3 +11,14 @@ SELECT product_id, count(*)
 FROM farmers_market.product
 GROUP BY product_id
 HAVING COUNT(*) > 1
+
+-- =========================================================================
+
+SELECT * FROM farmers_market.product_category
+
+-- =========================================================================
+
+SELECT count(*) FROM farmers_market.product
+
+-- =========================================================================
+
