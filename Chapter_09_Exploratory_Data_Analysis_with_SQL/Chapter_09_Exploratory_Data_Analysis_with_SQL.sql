@@ -22,3 +22,12 @@ SELECT count(*) FROM farmers_market.product
 
 -- =========================================================================
 
+
+
+SELECT DISTINCT product_qty_type
+FROM farmers_market.product
+
+-- ===================================================================
+
+SELECT * FROM farmers_market.vendor_booth_inventory
+LIMIT 10
