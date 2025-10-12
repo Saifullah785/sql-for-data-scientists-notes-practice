@@ -22,7 +22,16 @@ SELECT count(*) FROM farmers_market.product
 
 -- =========================================================================
 
+SELECT pc.product_category_id, pc.product_category_name,
+	COUNT(product_id) AS count_of_products
+FROM farmers_market.product_category AS pc
+LEFT JOIN farmers_market.product AS p
+	ON pc.product_category_id = p.product_category_id
+GROUP BY pc.product_category_id
 
+
+
+-- ===================Exploring Possible Column Values====================
 
 SELECT DISTINCT product_qty_type
 FROM farmers_market.product
@@ -31,3 +40,25 @@ FROM farmers_market.product
 
 SELECT * FROM farmers_market.vendor_booth_inventory
 LIMIT 10
+-- ===================================================================
+
+
+SELECT market_date, vendor_id, product_id, count(*)
+FROM farmers_market.vendor_booth_inventory
+GROUP BY market_date, vendor_id, product_id
+HAVING count(*) >1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
