@@ -48,6 +48,42 @@ FROM farmers_market.vendor_booth_inventory
 GROUP BY market_date, vendor_id, product_id
 HAVING count(*) >1
 
+-- ===================================================================
+
+SELECT min(market_date), max(market_date)
+FROM farmers_market.vendor_booth_inventory
+
+-- ===================================================================
+
+SELECT vendor_id, min(market_date), max(market_date)
+FROM farmers_market.vendor_booth_inventory
+GROUP BY vendor_id
+ORDER BY min(market_date), max(market_date)
+
+-- ===================Exploring Changes Over Time====================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
