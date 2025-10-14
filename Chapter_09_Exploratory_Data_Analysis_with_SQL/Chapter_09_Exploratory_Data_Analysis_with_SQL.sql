@@ -62,14 +62,23 @@ ORDER BY min(market_date), max(market_date)
 
 -- ===================Exploring Changes Over Time====================
 
+SELECT
+EXTRACT(YEAR FROM market_date) AS market_year,
+EXTRACT(MONTH FROM market_date) AS market_month,
+COUNT(DISTINCT vendor_id) AS vendor_with_inventory
+FROM farmers_market.vendor_booth_inventory
+GROUP BY EXTRACT(YEAR FROM market_date), EXTRACT(MONTH FROM market_date)
+ORDER BY EXTRACT(YEAR FROM market_date), EXTRACT(MONTH FROM market_date)
+
+-- ===================================================================
 
 
+SELECT * FROM farmers_market.vendor_booth_inventory
+WHERE vendor_id = 7
+ORDER BY market_date, product_id
 
 
-
-
-
-
+-- ============Exploring Multiple Tables Simultaneously==================
 
 
 
