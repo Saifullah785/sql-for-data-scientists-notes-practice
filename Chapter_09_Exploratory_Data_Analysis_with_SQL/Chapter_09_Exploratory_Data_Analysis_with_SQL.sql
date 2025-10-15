@@ -80,9 +80,20 @@ ORDER BY market_date, product_id
 
 -- ============Exploring Multiple Tables Simultaneously==================
 
+SELECT * FROM farmers_market.customer_purchases
+LIMIT 10
+-- ===================================================================
+SELECT * FROM farmers_market.customer_purchases
+WHERE vendor_id = 7 AND product_id = 4
+ORDER BY market_date, transaction_time
 
+-- ===================================================================
 
+SELECT * FROM farmers_market.customer_purchases
+WHERE vendor_id = 7 AND product_id = 4 AND customer_id =12
+ORDER BY customer_id, market_date, transaction_time
 
+-- ===================================================================
 
 
 
