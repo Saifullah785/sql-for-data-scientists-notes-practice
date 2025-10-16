@@ -95,7 +95,17 @@ ORDER BY customer_id, market_date, transaction_time
 
 -- ===================================================================
 
+SELECT market_date,
+	vendor_id,
+    product_id,
+    SUM(quantity) quantity_sold,
+    SUM(quantity * cost_to_customer_per_qty) total_sales
+FROM farmers_market.customer_purchases
+WHERE vendor_id = 7 and product_id =4 
+GROUP BY market_date, vendor_id, product_id
+ORDER BY market_date, vendor_id, product_id
 
+-- ==========Exploring Inventory vs. Sales=======================
 
 
 
