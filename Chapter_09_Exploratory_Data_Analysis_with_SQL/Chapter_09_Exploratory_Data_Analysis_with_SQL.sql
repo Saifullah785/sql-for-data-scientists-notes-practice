@@ -107,8 +107,25 @@ ORDER BY market_date, vendor_id, product_id
 
 -- ==========Exploring Inventory vs. Sales=======================
 
+SELECT * FROM farmers_market.vendor_booth_inventory AS vi
+LEFT JOIN
+	(
+    SELECT market_date,
+		vendor_id,
+        product_id,
+        SUM(quantity) AS quantity_sold,
+        SUM(quantity * cost_to_customer_per_qty) AS total_sales
+	FROM farmers_market.customer_purchases
+    GROUP BY market_date, vendor_id, product_id
+    ) AS sales
+    ON vi.market_date = sales.market_date
+		AND vi.vendor_id = sales.vendor_id
+        AND vi.product_id = sales.product_id
+ORDER BY vi.market_date, vi.vendor_id, vi.product_id
+LIMIT 10
 
 
+-- ===================================================================
 
 
 
