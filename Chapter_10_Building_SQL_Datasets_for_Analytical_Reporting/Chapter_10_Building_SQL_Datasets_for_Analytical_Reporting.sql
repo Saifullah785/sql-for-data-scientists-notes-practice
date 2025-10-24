@@ -86,7 +86,13 @@ FROM farmers_market.customer_purchases AS cp
 GROUP BY cp.market_date, cp.vendor_id
 ORDER BY cp.market_date, cp.vendor_id
 
+-- ==================================================================== 
 
+SELECT * 
+FROM farmers_market.vw_sales_by_day_vendor AS s
+WHERE s.market_date BETWEEN '2020-04-01' AND '2020-04-30'
+	AND s.vendor_id =7
+ORDER BY market_date
 
 
 
