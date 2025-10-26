@@ -96,8 +96,8 @@ ORDER BY market_date
 
 
 -- ==================================================================== 
-CREATE VIEW farners_marktet.vw_sales_per_date_vendor_product AS
 
+CREATE VIEW farmers_market.vw_sales_per_date_vendor_product AS 
 SELECT
 	vi.market_date,
     vi.vendor_id,
@@ -135,8 +135,19 @@ SELECT
             
 -- ====================================================================                     
 
+SELECT 
+	market_date,
+    vendor_name,
+    product_name,
+    quantity_available,
+    quantity_sold
+FROM farmers_market.vw_sales_per_date_vendor_product AS s
+WHERE market_date BETWEEN '2020-06-01' AND '2020-07-31'
+	AND vendor_name = 'Marcoo''s Peppers'
+    AND product_id IN (2, 4)
+ORDER BY market_date, product_id
 
-
+-- ====================================================================   
 
 
 
