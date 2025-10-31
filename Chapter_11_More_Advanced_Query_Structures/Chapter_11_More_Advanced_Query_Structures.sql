@@ -93,9 +93,24 @@ WHERE quantity_rank = 1
 ORDER BY market_date
 
 -- ========================================================
+-- ===============Self-Join to Determine To-Date Maximum=========
+
+WITH
+sales_per_market_date AS
+	(
+		SELECT
+			market_date,
+            ROUND(SUM(quantity * cost_to_customer_per_qty),2) AS sales
+		FROM farmers_market.customer_purchases
+		GROUP BY market_date
+        ORDER BY market_date
+	)
+    SELECT *
+    FROM sales_per_market_date
+    LIMIT 10
 
 
-
+-- ====================================================================
 
 
 
