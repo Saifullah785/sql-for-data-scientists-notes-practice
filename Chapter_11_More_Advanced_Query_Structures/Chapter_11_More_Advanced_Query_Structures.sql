@@ -112,7 +112,21 @@ sales_per_market_date AS
 
 -- ====================================================================
 
-
+WITH
+sales_per_market_date AS 
+ (
+	SELECT 
+		market_date,
+        ROUND(SUM(quantity * cost_to_customer_per_qty), 2) AS sales
+	FROM farmers_market.customer_purchases
+    GROUP BY market_date
+    ORDER BY market_date
+)
+SELECT *
+FROM sales_per_market_date AS cm
+	LEFT JOIN sales_per_market_date AS pm
+		ON pm.market_date < cm.market_date
+WHERE cm.market_date = '2019-04-13'
 
 
 
