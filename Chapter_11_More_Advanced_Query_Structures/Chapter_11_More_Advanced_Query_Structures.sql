@@ -177,9 +177,15 @@ sales_per_market_date AS
 
 
 -- ====================================================================
+-- ===============Counting New vs. Returning Customers by Week=========
 
+SELECT DISTINCT
+	customer_id,
+    market_date,
+    MIN(market_date) OVER (PARTITION BY cp.customer_id) AS first_purchase_date
+FROM farmers_market.customer_purchases cp
 
-
+-- ====================================================================
 
 
 
