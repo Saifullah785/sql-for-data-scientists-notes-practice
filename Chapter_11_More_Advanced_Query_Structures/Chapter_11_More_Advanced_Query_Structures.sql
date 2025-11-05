@@ -187,9 +187,27 @@ FROM farmers_market.customer_purchases cp
 
 -- ====================================================================
 
+WITH
+customer_markets_attended AS
+ (
+	SELECT DISTINCT
+		customer_id,
+        market_date,
+        MIN(market_date) OVER (PARTITION BY cp.customer_id) AS first_purchhases_date
+	FROM farmers_market.customer_purchases cp
+	)
+    SELECT 
+		md.market_year,
+        md.market_week, 
+        COUNT(customer_id) AS customer_visit_count,
+        COUNT(DISTINCT customer_id) AS distinct_customer_count
+	FROM customer_markets_attended AS cma
+		LEFT JOIN farmers_market.market_date_info AS md
+			ON cma.market_date = md.market_date
+	GROUP BY md.market_year, md.market_week
+    ORDER BY md.market_year, md.market_week
 
-
-
+-- ====================================================================
 
 
 
