@@ -209,10 +209,16 @@ customer_markets_attended AS
 
 -- ====================================================================
 
+COUNT(
+	DISTINCT
+    CASE WHEN cma.market_date = cma.first_purchase_date
+		THEN customer_id
+		ELSE NULL
+	END
+    ) AS new_customer_count
 
 
-
-
+-- ====================================================================
 
 
 
