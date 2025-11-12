@@ -14,11 +14,11 @@ ORDER BY md.market_year, md.market_week
 -- ===========================================================================================
 
 WITH
-customer_market_attended AS
+customer_markets_attended AS
 	(
 		SELECT DISTINCT
 			customer_id,
-            market_date,
+            market_date
 		FROM farmers_market.customer_purchases
         ORDER BY customer_id, market_date
 	)
@@ -54,7 +54,68 @@ FROM farmers_market.customer_purchases AS cp
 GROUP BY cp.customer_id, cp.market_date
 ORDER BY cp.customer_id, cp.market_date
         
-        
+ -- ===========================================================================================
+ 
+ WITH
+ customer_markets_attended AS
+	(
+		SELECT DISTINCT
+			customer_id,
+            market_date
+		FROM farmers_market.customer_purchases
+        ORDER BY customer_id, market_date
+	)
+    SELECT cp.market_date,
+		cp.customer_id,
+        SUM(cp.quantity * cp.cost_to_customer_per_qty) AS purchase_total,
+        COUNT(DISTINCT cp.vendor_id) AS vendors_patronized,
+        MAX(CASE WHEN cp.vendor_id = 7 THEN 1 ELSE 0 END) AS 
+	purchases_from_vendor_7,
+		MAX(CASE WHEN cp.vendor_id = 8 THEN 1 ELSE 0 END) AS
+	purchased_from_vendor_8,
+		COUNT(DISTINCT cp.product_id) AS different_products_purchased,
+        DATEDIFF(cp.market_date,
+			(SELECT MAX(cma.market_date)
+            FROM customer_markets_attended AS cma
+            WHERE cma.customer_id = cp.customer_id
+				AND cma.market_date > cp.market_date
+			GROUP BY cma.customer_id)) AS days_since_last_customer_market_date,
+            CASE WHEN
+            DATEDIFF(
+				(SELECT MIN(cma.market_date)
+                FROM customer_markets_attended AS cma
+                WHERE cma.customer_id = cp.customer_id
+					AND cma.market_date > cp.market_date
+				GROUP BY cma.customer_id),
+                cp.market_date) <=30 THEN 1 ELSE 0 END AS
+	purchased_again_within_30_days
+    FROM farmers_market.customer_purchases AS cp
+    GROUP BY cp.customer_id, cp.market_date
+    ORDER BY cp.customer_id, cp.market_date
+  -- ===========================================================================================
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
         
         
         
