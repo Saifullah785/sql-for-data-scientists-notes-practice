@@ -118,17 +118,33 @@ ORDER BY cp.customer_id, cp.market_date
  
  
    -- ===========================================================================================
+   
+WITH 
+customer_markets_attended AS
+ (
+	SELECT
+		customer_id,
+        market_date,
+        ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY market_date)
+	AS market_count
+		FROM farmers_market.customer_purchases
+        GROUP BY customer_id, market_date
+        ORDER BY customer_id, market_date
+)
+SELECT cp.customer_id, cp.market_date,
+	(SELECT COUNT(market_date)
+		FROM customer_markets_attended AS cma
+        WHERE cma.customer_id = cp.customer_id
+			AND cma.market_date < cp.market_date
+            AND DATEDIFF(cp.market_date, cma.market_date) <= 30) AS 
+customer_markets_attended_30days_count
+FROM farmers_market.customer_purchases AS cp
+GROUP BY cp.customer_id, cp.market_date
+ORDER BY cp.customer_id, cp.market_date
+
  
  
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
  
  
  
