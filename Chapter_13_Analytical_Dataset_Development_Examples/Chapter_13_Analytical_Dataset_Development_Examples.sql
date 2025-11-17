@@ -11,9 +11,52 @@ ORDER BY product_category_id
 
 -- =============================================================================================
 
-
+USE farmers_market;
 SELECT * 
 FROM  customer_purchases cp
 	INNER JOIN product p
 		ON cp.product_id = p.product_id
 WHERE p.product_category_id = 1
+
+-- =============================================================================================
+USE farmers_market;
+SELECT 
+	cp.market_date,
+    cp.customer_id,
+    cp.quantity,
+    cp.cost_to_customer_per_qty,
+    p.product_category_id,
+    mdi.market_date,
+    mdi.market_week,
+    mdi.market_year,
+    mdi.market_rain_flag,
+    mdi.market_snow_flag
+FROM customer_purchases cp
+	INNER JOIN product p
+		ON cp.product_id = p.product_id
+	RIGHT JOIN market_date_info mdi
+		ON mdi.market_date = cp.market_date
+WHERE p.product_category_id = 1
+-- =============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
