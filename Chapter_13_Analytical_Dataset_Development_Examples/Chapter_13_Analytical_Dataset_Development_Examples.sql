@@ -80,11 +80,26 @@ FROM customer_purchases cp
 GROUP BY 
 	mdi.market_year,
     mdi.market_week
+    
 -- =============================================================================================
 
+USE farmers_market;
+
+SELECT 
+	mdi.market_date,
+    mdi.market_year,
+    mdi.market_week,
+    vi.*,
+    p.*
+FROM vendor_booth_inventory vi
+	INNER JOIN product p
+		ON vi.product_id = p.product_id
+			AND p.product_category_id = 1
+	RIGHT JOIN market_date_info mdi
+		ON mdi.market_date = vi.market_date
 
 
-
+-- =============================================================================================
 
 
 
