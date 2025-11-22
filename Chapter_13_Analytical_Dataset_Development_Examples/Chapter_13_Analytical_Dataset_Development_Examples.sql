@@ -122,6 +122,57 @@ FROM vendor_booth_inventory vi
     mdi.market_week
 
 -- =============================================================================================
+USE farmers_market;
+SELECT
+	mdi.market_year,
+    mdi.market_week,
+    COUNT(DISTINCT vi.vendor_id) AS vendor_count,
+    COUNT(DISTINCT CASE WHEN p.product_category_id = 1 THEN vi.vendor_id
+ELSE NULL END) AS vendor_count_product_category1,
+	COUNT(DISTINCT vi.product_id) AS unique_product_count,
+    COUNT(DISTINCT CASE WHEN p.product_category_id = 1 THEN vi.product_id
+ELSE NULL END) AS unique_product_count_product_category1,
+	SUM(CASE WHEN p.product_qty_type = 'unit' THEN vi.quantity ELSE 0 END)
+AS unit_products_qty,
+		
+	SUM(CASE WHEN p.product_category_id = 1 AND p.product_qty_type = 'unit'
+THEN vi.quantity ELSE 0 END) AS unit_products_qty_product_category1,
+	SUM(CASE WHEN p.product_qty_type = 'lbs' THEN vi.quantity ELSE 0 END)
+AS bulk_products_lbs,
+	SUM(CASE WHEN p.product_category_id = 1 AND p.product_qty_type = 'lbs'
+THEN vi.quantity ELSE 0 END) AS bulk_products_lbs_product_category1,
+	ROUND(COALESCE(SUM(vi.quantity * vi.original_price), 0), 2) AS total_product_value,
+    ROUND(COALESCE(SUM(CASE WHEN p.product_category_id = 1 THEN vi.quantity
+* vi.original_price ELSE 0 END), 0), 2) AS total_product_value_product_category1,
+	MAX(CASE WHEN p.product_id = 16 THEN 1 ELSE 0 END) AS corn_available_flag
+FROM vendor_booth_inventory vi
+	INNER JOIN product p
+		ON vi.product_id = p.product_id
+	RIGHT JOIN market_date_info mdi
+		ON mdi.market_date = vi.market_date
+GROUP BY 
+	mdi.market_year,
+    mdi.market_week
+
+-- =============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
