@@ -155,8 +155,31 @@ GROUP BY
     mdi.market_week
 
 -- =============================================================================================
-
-
+USE farmers_market;
+WITH 
+my_customer_purchases AS
+ (
+		SELECT
+			mdi.market_year,
+            mdi.market_week,
+            MAX(mdi.market_rain_flag) AS market_week_rain_flag,
+            MAX(mdi.market_snow_flag) AS market_week_snow_flag,
+            MIN(mdi.market_min_temp) AS minimum_temperature,
+            MAX(mdi.market_max_temp) AS maximum_temperature,
+            MIN(mdi.market_season) As market_season,
+            ROUND(COALESCE(SUM(cp.quantity * cp.cost_to_customer_per_qty), 0), 2)
+	AS weekly_category1_sales
+		FROM customer_purchases cp
+			INNER JOIN product p
+				ON cp.product_id = p.product_id
+					AND p.product_category_id = 1
+			RIGHT JOIN market_date_info mdi
+				ON mdi.market_date = cp.market_date
+		GROUP BY 
+			mdi.market_year,
+            mdi.market_week
+		),
+            
 
 
 
