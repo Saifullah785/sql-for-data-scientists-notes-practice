@@ -219,7 +219,35 @@ my_customer_purchases AS
 					AND my_vendor_inventory.market_week = my_customer_purchases.market_Week
 		ORDER BY my_vendor_inventory.market_year, my_vendor_inventory.market_week
                
-               
+-- =============================================================================================
+USE farmers_market;
+
+SELECT 
+	mvi.market_year,
+    mvi.market_week,
+    mcp.market_week_rain_flag,
+    mcp.market_week_snow_flag,
+    mcp.minimum_temperature,
+    mcp.maximum_temperature,
+    mcp.market_season,
+    mvi.vendor_count,
+    mvi.vendor_count_product_category1,
+    mvi.unique_product_count,
+    mvi.unique_products_count_product_category1,
+    mvi.unit_products_qty,
+    mvi.unit_products_qty_product_category1,
+    mvi.bulk_products_qty,
+    mvi.bulk_products_qty_product_category1,
+    mvi.total_product_value,
+    mvi.total_product_value_product_category1,
+    LAG(mcp.weekly_category1_sales, 1) OVER (ORDER BY mvi.market_year,
+mvi.market_week) AS previous_week_category1_sales,
+	mcp.weekly_category1_sales
+FROM my_vendor_inventory mvi
+	LEFT JOIN my_customer_purchases mcp
+		ON mvi.market_year = mcp.market_year
+			AND mvi.market_week = mcp.market_week
+ORDER BY mvi.market_year, mvi.market_week
             
 
 
