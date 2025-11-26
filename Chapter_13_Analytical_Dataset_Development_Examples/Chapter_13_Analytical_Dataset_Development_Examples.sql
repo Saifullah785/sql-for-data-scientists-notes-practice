@@ -248,7 +248,50 @@ FROM my_vendor_inventory mvi
 		ON mvi.market_year = mcp.market_year
 			AND mvi.market_week = mcp.market_week
 ORDER BY mvi.market_year, mvi.market_week
-            
+
+               
+-- =====================How Do Sales Vary by Customer Zip Code, Market Distance, and Demographic Data?======
+
+SELECT
+	c.customer_id,
+    c.customer_zip,
+    DATEDIFF(MAX(market_date), MIN(market_date)) customer_duration_days,
+    COUNT(DISTINCT market_date) number_of_markets,
+    ROUND(SUM(quantity * cost_to_customer_per_qty), 2) total_spent,
+    ROUND(SUM(quantity * cost_to_customer_per_qty) / COUNT(DISTINCT
+    market_date), 2) average_spent_per_market
+FROM farmers_market.customer c
+LEFT JOIN farmers_market.customer_purchases cp
+	ON cp.customer_id = c.customer_id
+GROUP BY c.customer_id
+
+-- =============================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
