@@ -289,7 +289,56 @@ FROM customer c
 GROUP BY  c.customer_id
 
 -- =============================================================================================
+USE farmers_market;
 
+SELECT
+	c.customer_id,
+    DATEDIFF(MAX(market_date), MIN(market_date)) AS customer_duration_days,
+    COUNT(DISTINCT market_date) AS number_of_markets,
+    ROUND(SUM(quantity * cost_to_customer_per_qty), 2) AS total_spent,
+    ROUND(SUM(quantity * cost_to_customer_per_qty) / COUNT(DISTINCT 
+market_date), 2) AS average_spent_per_market,
+    c.customer_zip,
+    z.median_household_income AS zip_median_household_income,
+    z.percent_high_income AS zip_percent_high_income,
+    z.percent_under_18 AS zip_percent_under_18,
+    z.percent_over_65 AS zip_percent_over_65,
+    z.people_per_sq_mile AS zip_people_per_sq_mile,
+    ROUND(2 * 3961 * ASIN(SQRT(POWER(SIN(RADIANS((z.latitude - 38.4463) / 2)),2) +
+COS(RADIANS(38.4463)) * COS(RADIANS(z.latitude)) * POWER((SIN(RADIANS((z.longitude - -
+78.8712) / 2))), 2)))) AS zip_miles_from_market
+
+FROM customer AS c
+	LEFT JOIN customer_purchases AS cp
+		ON cp.customer_id = c.customer_id
+	LEFT JOIN zip_data AS z
+		ON c.customer_zip = z.zip_code_5
+GROUP BY c.customer_id
+    
+-- =============================================================================================
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 
