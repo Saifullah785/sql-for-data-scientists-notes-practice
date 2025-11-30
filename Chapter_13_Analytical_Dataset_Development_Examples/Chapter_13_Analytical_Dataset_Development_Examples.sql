@@ -357,9 +357,29 @@ SELECT
 FROM customer_and_zip_data AS cz
 GROUP BY cz.customer_zip
     
+-- =====================How Does Product Price Distribution Affect Market Sales? ======
+USE farmers_market;
+SELECT 
+	p.product_id,
+    p.product_name,
+    p.product_category_id,
+    p.product_qty_type,
+    vi.vendor_id,
+    vi.market_date,
+    SUM(vi.quantity),
+    AVG(vi.original_price)
+FROM product AS p
+	LEFT JOIN vendor_booth_inventory AS vi
+		ON vi.product_id = p.product_id
+GROUP BY 
+	p.product_id,
+    p.product_name,
+    p.product_category_id,
+    p.product_qty_type,
+    vi.vendor_id,
+    vi.market_date
+    
 -- =============================================================================================
-    
-    
     
     
     
