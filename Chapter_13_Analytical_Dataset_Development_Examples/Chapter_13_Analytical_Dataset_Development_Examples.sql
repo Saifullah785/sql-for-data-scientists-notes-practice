@@ -380,9 +380,33 @@ GROUP BY
     vi.market_date
     
 -- =============================================================================================
-    
-    
-    
+USE farmers_market;
+SELECT
+	p.product_id,
+    p.product_name,
+    p.product_category_id,
+    p.product_qty_type,
+    vi.vendor_id,
+    MIN(MONTH(vi.market_date)) AS month_market_season_sort,
+    mdi.market_season,
+    mdi.market_year,
+    SUM(vi.quantity) AS quantity_available,
+    AVG(vi.original_price) AS avg_original_price
+FROM product AS p
+	LEFT JOIN vendor_booth_inventory AS vi
+		ON vi.product_id = p.product_id
+	LEFT JOIN market_date_info AS mdi
+		ON vi.market_date = mdi.market_date
+GROUP BY 
+	p.product_id,
+    p.product_name,
+    p.product_category_id,
+    p.product_qty_type,
+    vi.vendor_id,
+    mdi.market_year,
+    mdi.market_season
+
+-- =============================================================================================
     
     
     
