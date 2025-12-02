@@ -408,9 +408,39 @@ GROUP BY
 
 -- =============================================================================================
     
+USE farmers_market;
+
+SELECT
+	p.product_id,
+    p.product_name,
+    p.product_category_id,
+    p.product_qty_type,
+    vi.vendor_id,
+    MIN(MONTH(vi.market_date)) OVER (PARTITION BY market_season) AS month_market_season_sort,
+    mdi.market_season,
+    mdi.market_year,
+    AVG(vi.original_price) AS avg_original_price,
+    SUM(cp.quantity) AS quantity_sold,
+    SUM(cp.quantity * cp.cost_to_customer_per_qty) AS total_sales
+FROM product AS p
+	LEFT JOIN vendor_booth_inventory AS vi
+		ON vi.product_id = p.product_id
+	LEFT JOIN market_date_info AS mdi
+		ON vi.market_date = mdi.market_date
+	LEFT JOIN customer_purchases AS cp
+		ON vi.product_id = cp.product_id
+        AND vi.vendor_id = cp.vendor_id
+        AND vi.market_date = cp.market_date
+GROUP BY 
+	p.product_id,
+    p.product_name,
+    p.product_category_id,
+    p.product_qty_type,
+    vi.vendor_id,
+    mdi.market_year,
+    mdi.market_season    
     
-    
-    
+-- =============================================================================================
     
     
     
