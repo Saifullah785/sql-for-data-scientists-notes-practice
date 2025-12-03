@@ -441,10 +441,36 @@ GROUP BY
     mdi.market_season    
     
 -- =============================================================================================
+USE farmers_market;
+SELECT
+	mdi.market_season,
+    mdi.market_year,
+    MIN(MONTH(vi.market_date)) OVER (PARTITION BY market_season) AS
+month_market_season_sort,
+	vi.original_price,
+    NTILE(3) OVER (PARTITION BY market_year, market_season ORDER BY original_price) AS
+price_ntile,
+	NTILE(3) OVER (PARTITION BY market_year, market_season ORDER BY original_price
+DESC) AS price_ntile_desc,
+	COUNT(DISTINCT CONCAT(vi.product_id, vi.vendor_id)) product_count,
+    SUM(cp.quantity) AS quantity_sold,
+    SUM(cp.quantity * cp.cost_to_customer_per_qty) AS total_sales
+FROM product AS p
+	LEFT JOIN vendor_booth_inventory AS vi
+		ON vi.product_id = p.product_id
+	LEFT JOIN market_date_info AS mdi
+		ON vi.market_date = mdi.market_date
+	LEFT JOIN customer_purchases AS cp
+		ON vi.product_id = cp.product_id
+        AND vi.vendor_id = cp.product_id
+        AND vi.market_date = cp.market_date
+WHERE market_year IS NOT NULL
+GROUP BY
+	mdi.market_year,
+    mdi.market_season,
+    vi.original_price
     
-    
-    
-    
+-- =============================================================================================
     
     
     
