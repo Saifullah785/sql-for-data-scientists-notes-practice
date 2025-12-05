@@ -472,13 +472,14 @@ GROUP BY
     
 -- =============================================================================================
 USE farmers_market;
-WITH product_price AS
+
+WITH product_prices AS
 (
 	SELECT
 		mdi.market_season,
         mdi.market_year,
         MIN(MONTH(vi.market_date)) OVER  (PARTITION BY market_season) AS
-	Month_market_season_sort,
+	month_market_season_sort,
 		vi.original_price,
         NTILE(3) OVER (PARTITION BY market_year, market_season ORDER BY
 	original_price) AS price_ntile,
@@ -501,11 +502,30 @@ WITH product_price AS
 			mdi.market_year,
             mdi.market_season,
             vi.original_price
-		)
+)
+
+SELECT
+	market_year,
+    market_season,
+    price_ntile,
+    SUM(product_count) AS product_count,
+    SUM(quantity_sold) AS quantity_sold,
+    MIN(original_price) AS max_price,
+    SUM(total_sales) AS total_sales
+FROM product_prices
+GROUP BY
+	market_year,
+    market_season,
+    price_ntile
+ORDER BY
+	market_year,
+    month_market_season_sort,
+    price_ntile
     
 -- =============================================================================================
+
     
-    
+
     
     
     
