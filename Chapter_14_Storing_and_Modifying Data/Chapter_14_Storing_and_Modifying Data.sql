@@ -42,7 +42,16 @@ CREATE TABLE farmers_market.product_units AS
 
 -- =====================================================================================
 
-
+INSERT INTO farmers_market.product_units (product_id, product_name, product_size, product_category_id, product_qty_type, snapshot_timestamp)
+	SELECT
+		product_id,
+        product_name,
+        product_size,
+        product_category_id,
+        product_qty_type,
+        CURRENT_TIMESTAMP
+	FROM farmers_market.product AS p
+    WHERE product_id = 23
 
 
 
