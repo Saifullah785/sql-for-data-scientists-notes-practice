@@ -53,10 +53,14 @@ INSERT INTO farmers_market.product_units (product_id, product_name, product_size
 	FROM farmers_market.product AS p
     WHERE product_id = 23
 
+-- =====================================================================================
+
+DELETE FROM farmers_market.product_units
+WHERE product_id = 23
+	AND snapshot_timestamp = "2021-04-18 00:49:24"
 
 
-
-
+-- =====================================================================================
 
 
 
