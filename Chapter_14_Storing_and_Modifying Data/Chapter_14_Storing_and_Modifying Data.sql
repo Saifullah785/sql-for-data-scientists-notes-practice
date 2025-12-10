@@ -61,9 +61,22 @@ WHERE product_id = 23
 
 
 -- =====================================================================================
+CREATE TABLE farmers_market.vendor_booth_log AS
+(
+	SELECT vba. *,
+		b.booth_type,
+        v.vendor_name,
+        CURRENT_TIMESTAMP AS snapshot_timestamp
+	FROM farmers_market.vendor_booth_assignments vba
+		INNER JOIN farmers_market.vendor v
+			ON vba.vendor_id = v.vendor_id
+		INNER JOIN farmers_market.booth b
+			ON vba.booth_number = b.booth_number
+	WHERE market_date >= '2020-10-01'
+)
 
 
-
+-- =====================================================================================
 
 
 
