@@ -78,10 +78,31 @@ CREATE TABLE farmers_market.vendor_booth_log AS
 
 -- =====================================================================================
 
+UPDATE farmers_market.vendor_booth_assignments
+SET booth_number = 7
+WHERE vendor_id = 8 and market_date= '2020-10-10'
 
+DELETE FROM farmers_market.vendor_booth_assignments
+WHERE vendor_id = 4 and market_date = "2020-10-10"
 
+-- =====================================================================================
+INSERT INTO farmers_market.vendor_booth_log (vendor_id, booth_number,
+market_date, booth_type, vendor_name, snapshot_timestamp)
+	SELECT
+		vba.vendor_id,
+        vba.booth_number,
+        vba.market_date,
+        b.booth_type,
+        v.vendor_name,
+        CURRENT_TIMESTAMP AS snapshot_timestamp
+	FROM farmers_market.vendor_booth_assignments vba
+		INNER JOIN farmers_market.vendor v
+			ON vba.vendor_id = v.vendor_id
+		INNER JOIN farmers_market.booth b
+			ON vba.booth_number = b.booth_number
+	WHERE market_date >= "2020-10-01"
 
-
+-- =====================================================================================
 
 
 
