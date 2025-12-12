@@ -102,7 +102,9 @@ market_date, booth_type, vendor_name, snapshot_timestamp)
 			ON vba.booth_number = b.booth_number
 	WHERE market_date >= "2020-10-01"
 
--- =====================================================================================
+-- =========================Using SQL Inside Scripts==================================
+
+SELECT * FROM farmers_market.product WHERE product_qty_type = "unit"
 
 
 
