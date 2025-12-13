@@ -1,5 +1,5 @@
 -- ================================ Chapter 14 Storing and Modifying Data ==============
-
+-- =======================Storing SQL Datasets as Tables and Views===========================
 CREATE TABLE farmers_market.product_units AS
 	(
 		SELECT * 
@@ -28,7 +28,7 @@ SELECT * FROM farmers_market.product_units_vw
 DROP VIEW farmers_market.product_units_vw
 ;
 
--- =====================================================================================
+-- ====================Adding a Timestamp Column===============================
 
 
 CREATE TABLE farmers_market.product_units AS
@@ -40,7 +40,7 @@ CREATE TABLE farmers_market.product_units AS
 )
 
 
--- =====================================================================================
+-- ========Inserting Rows and Updating Values in Database Tables==============================
 
 INSERT INTO farmers_market.product_units (product_id, product_name, product_size, product_category_id, product_qty_type, snapshot_timestamp)
 	SELECT
@@ -106,7 +106,8 @@ market_date, booth_type, vendor_name, snapshot_timestamp)
 
 SELECT * FROM farmers_market.product WHERE product_qty_type = "unit"
 
-
+my_query = "SELECT * FROM farmers_market.product WHERE product_qty_type 
+= \"unit\""
 
 
 
